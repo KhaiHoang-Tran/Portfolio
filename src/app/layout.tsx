@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import { portfolio } from "@/content/portfolio";
+import { MotionProvider } from "@/components/motion-provider";
+import { SmoothAnchorScroll } from "@/components/smooth-anchor-scroll";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -18,5 +20,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html lang="en" className={geistSans.variable}><body>{children}</body></html>;
+  return <html lang="en" className={geistSans.variable}><body><MotionProvider><SmoothAnchorScroll />{children}</MotionProvider></body></html>;
 }

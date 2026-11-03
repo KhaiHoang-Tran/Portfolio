@@ -6,7 +6,7 @@
   --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body {
   margin: 0;
   background: #080b0f;
@@ -16,7 +16,28 @@ body {
 }
 ::selection { background: #9ee4d4; color: #0a1615; }
 section { scroll-margin-top: 4.5rem; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.intro-screen { position: fixed; z-index: 80; inset: 0; display: grid; place-items: center; overflow: hidden; background: #080b0f; pointer-events: none; animation: intro-exit 2.15s both; }
+.intro-screen-glow { position: absolute; width: min(80vw, 650px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(71, 187, 164, .12), transparent 65%); filter: blur(20px); }
+.intro-terminal { position: relative; width: min(370px, calc(100vw - 48px)); overflow: hidden; border: 1px solid rgba(158, 228, 212, .16); border-radius: 14px; background: #10171c; box-shadow: 0 24px 90px rgba(0, 0, 0, .45); animation: intro-card 1.65s both; }
+.intro-terminal-top { display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px; border-bottom: 1px solid rgba(255, 255, 255, .07); color: #82959a; font: 11px var(--font-mono); letter-spacing: .02em; }
+.intro-terminal-mark { color: #9ee4d4; font-weight: 700; font-size: 14px; }
+.intro-terminal-dots { margin-left: auto; color: #53666b; letter-spacing: 2px; }
+.intro-terminal-body { display: grid; gap: 10px; padding: 22px 20px 26px; }
+.intro-line { margin: 0; color: #d3e2df; font: 12px var(--font-mono); letter-spacing: .01em; opacity: 0; animation: intro-line .4s ease-out both; }
+.intro-line span:first-child { display: inline-block; width: 23px; color: #8bddc6; }
+.intro-line-one { animation-delay: .2s; }
+.intro-line-two { animation-delay: .68s; }
+.intro-line-three { color: #a6dfc2; animation-delay: 1.12s; }
+.intro-cursor { display: inline-block; width: 5px; height: 12px; margin-left: 5px; vertical-align: -2px; background: #8bddc6; animation: intro-cursor .5s step-end infinite; }
+.intro-progress { height: 2px; background: rgba(158, 228, 212, .1); }
+.intro-progress span { display: block; width: 100%; height: 100%; background: #8bddc6; transform-origin: left; animation: intro-progress 1.65s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes intro-line { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes intro-card { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes intro-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes intro-cursor { 50% { opacity: 0; } }
+@keyframes intro-exit { 0%, 76% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .intro-screen { display: none; } }
 
 .skip-link { position: fixed; z-index: 100; left: 1rem; top: -4rem; border-radius: .5rem; background: #a9e7d8; padding: .65rem 1rem; color: #081512; font-size: .875rem; font-weight: 600; }
 .skip-link:focus { top: 1rem; }
